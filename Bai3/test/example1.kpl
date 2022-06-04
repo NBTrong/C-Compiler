@@ -1,4 +1,4 @@
-Program Example1; (* Example 1 *)
-VAR  A : ARRAY(. 10 .) OF INTEGER;
+Program Example1; //Example 1
+VAR  A : ARRAY[10] OF INTEGER;
 Begin;
 End. (* Example 1 *)

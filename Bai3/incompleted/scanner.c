@@ -32,6 +32,12 @@ void skipComment()
   int state = 0;
   while ((currentChar != EOF) && (state < 2))
   {
+    if (currentChar == '\n')
+    {
+      state = 2;
+      readChar();
+      continue;
+    }
     switch (charCodes[currentChar])
     {
     case CHAR_TIMES:
@@ -187,6 +193,15 @@ Token *getToken(void)
     cn = colNo;
     readChar();
     if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_EQ))
+    {
+      readChar();
+      return makeToken(SB_ASSIGN_DIVIDE, ln, cn);
+    }
+    if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_SLASH))
+    {
+      skipComment();
+      return getToken();
+    }
     {
       readChar();
       return makeToken(SB_ASSIGN_DIVIDE, ln, cn);
