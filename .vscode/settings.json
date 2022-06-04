@@ -1,5 +1,11 @@
 {
     "cSpell.words": [
-        "EXCLAIMATION"
-    ]
+        "ENDOFCOMMENT",
+        "EXCLAIMATION",
+        "RSEL"
+    ],
+    "files.associations": {
+        "scanner.h": "c",
+        "token.h": "c"
+    }
 }
