@@ -28,7 +28,7 @@ void skipBlank()
     readChar();
 }
 
-void skipComment()
+void skipCommentBlog()
 {
   int state = 0;
   while ((currentChar != EOF) && (state < 2))
@@ -38,7 +38,7 @@ void skipComment()
     case CHAR_TIMES:
       state = 1;
       break;
-    case CHAR_RPAR:
+    case CHAR_SLASH:
       if (state == 1)
         state = 2;
       else
@@ -51,6 +51,14 @@ void skipComment()
   }
   if (state != 2)
     error(ERR_END_OF_COMMENT, lineNo, colNo);
+}
+
+void skipCommentLine()
+{
+  while ((currentChar != EOF) && currentChar != '\n')
+  {
+    readChar();
+  }
 }
 
 Token *readIdentKeyword(void)
@@ -167,9 +175,22 @@ Token *getToken(void)
     readChar();
     return token;
   case CHAR_SLASH:
-    token = makeToken(SB_SLASH, lineNo, colNo);
+    ln = lineNo;
+    cn = colNo;
     readChar();
-    return token;
+    if ((currentChar != EOF) && charCodes[currentChar] == CHAR_TIMES)
+    {
+      readChar();
+      skipCommentBlog();
+      return getToken();
+    }
+    else if ((currentChar != EOF) && charCodes[currentChar] == CHAR_SLASH)
+    {
+      readChar();
+      skipCommentLine();
+      return getToken();
+    }
+    return makeToken(SB_SLASH, ln, cn);
   case CHAR_LT:
     ln = lineNo;
     cn = colNo;
@@ -262,10 +283,6 @@ Token *getToken(void)
     case CHAR_PERIOD:
       readChar();
       return makeToken(SB_LSEL, ln, cn);
-    case CHAR_TIMES:
-      readChar();
-      skipComment();
-      return getToken();
     default:
       return makeToken(SB_LPAR, ln, cn);
     }
