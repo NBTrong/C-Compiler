@@ -29,6 +29,7 @@ typedef enum
   CHAR_RPAR,
   CHAR_LBR,
   CHAR_RBR,
+  CHAR_QUESTION,
   CHAR_UNKNOWN
 } CharCode;
 

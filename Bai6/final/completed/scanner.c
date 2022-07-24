@@ -281,6 +281,10 @@ Token *getToken(void)
     token = makeToken(SB_RPAR, lineNo, colNo);
     readChar();
     return token;
+  case CHAR_QUESTION:
+    token = makeToken(SB_QUESTION, lineNo, colNo);
+    readChar();
+    return token;
   default:
     token = makeToken(TK_NONE, lineNo, colNo);
     error(ERR_INVALID_SYMBOL, lineNo, colNo);
