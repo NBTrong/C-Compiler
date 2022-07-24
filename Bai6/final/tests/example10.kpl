@@ -1,6 +1,7 @@
 Program Bai1CuoiKiK60C;
 VAR input: INTEGER;
    test: INTEGER;
+   array1 : ARRAY[10] OF INTEGER;
 
 function ChanLe(n: INTEGER): INTEGER;
 BEGIN

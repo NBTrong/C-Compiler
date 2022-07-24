@@ -263,6 +263,14 @@ Token *getToken(void)
     default:
       return makeToken(SB_LPAR, ln, cn);
     }
+  case CHAR_LBR:
+    token = makeToken(SB_LSEL, lineNo, colNo);
+    readChar();
+    return token;
+  case CHAR_RBR:
+    token = makeToken(SB_RSEL, lineNo, colNo);
+    readChar();
+    return token;
   case CHAR_RPAR:
     token = makeToken(SB_RPAR, lineNo, colNo);
     readChar();
