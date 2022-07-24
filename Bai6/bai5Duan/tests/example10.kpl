@@ -23,17 +23,21 @@ END;
 
 BEGIN
   input := 22;
+  CALL WRITEI(input);
+  CALL WRITEC(' ');
   WHILE input != 1 DO 
     BEGIN
       IF ChanLe(input) = 1 THEN
         BEGIN
           input := A(input);
           CALL WRITEI(input);
+          CALL WRITEC(' ');
         END
       ELSE
         BEGIN
           input := B(input);
           CALL WRITEI(input);
+          CALL WRITEC(' ');
         END
     END;
 END.
