@@ -193,9 +193,15 @@ Token *getToken(void)
     else
       return makeToken(SB_GT, ln, cn);
   case CHAR_EQ:
-    token = makeToken(SB_EQ, lineNo, colNo);
+    ln = lineNo;
+    cn = colNo;
     readChar();
-    return token;
+    if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_EQ))
+    {
+      readChar();
+      return makeToken(SB_EQ, ln, cn);
+    }
+    return makeToken(SB_EQ, ln, cn);
   case CHAR_EXCLAIMATION:
     ln = lineNo;
     cn = colNo;
