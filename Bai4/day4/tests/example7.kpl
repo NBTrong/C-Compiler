@@ -1,0 +1,39 @@
+Program Bai1CuoiKiK60C;
+VAR input: INTEGER;
+   test: INTEGER;
+
+FUNCTION ChanLe(n: INTEGER): INTEGER;
+BEGIN
+  test := n /2 * 2;
+  If n = test THEN
+    ChanLe := 1
+  ELSE
+    ChanLe := 0
+END;
+
+FUNCTION A(n: INTEGER): INTEGER;
+BEGIN
+  A := n / 2;
+END;
+
+FUNCTION B(n: INTEGER): INTEGER;
+BEGIN
+  B := n * 3 + 1;
+END;
+
+BEGIN
+  input := 20;
+  WHILE input != 1 DO 
+    BEGIN
+      IF ChanLe(input) = 1 THEN
+        BEGIN
+          input := A(input);
+          CALL WRITEI(input);
+        END
+      ELSE
+        BEGIN
+          input := B(input);
+          CALL WRITEI(input);
+        END
+    END;
+END.

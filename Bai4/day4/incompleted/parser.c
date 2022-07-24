@@ -1,4 +1,4 @@
-/* 
+/*
  * @copyright (c) 2008, Hedspi, Hanoi University of Technology
  * @author Huu-Duc Nguyen
  * @version 1.0
@@ -45,8 +45,8 @@ void compileProgram(void)
   eat(KW_PROGRAM);
   eat(TK_IDENT);
 
-  program = createProgramObject(currentToken->string);
-  enterBlock(program->progAttrs->scope);
+  program = createProgramObject(currentToken->string); // Đọc đến tên của chương trình thì tạo chương trình
+  enterBlock(program->progAttrs->scope);               // Tạo scope cho chương trình
 
   eat(SB_SEMICOLON);
 
@@ -69,7 +69,7 @@ void compileBlock(void)
     {
       eat(TK_IDENT);
 
-      checkFreshIdent(currentToken->string);
+      checkFreshIdent(currentToken->string); // Check tên constant đã được sử dụng chưa, nếu rồi thì báo lỗi
       constObj = createConstantObject(currentToken->string);
 
       eat(SB_EQ);
@@ -79,7 +79,7 @@ void compileBlock(void)
       declareObject(constObj);
 
       eat(SB_SEMICOLON);
-    } while (lookAhead->tokenType == TK_IDENT);
+    } while (lookAhead->tokenType == TK_IDENT); // Trường hợp khai báo const liên tục (CONST MAX = 10; MIN = -10;)
 
     compileBlock2();
   }
@@ -488,8 +488,8 @@ Type *compileLValue(void)
   return varType;
 }
 
-
-void compileAssignSt(void) {
+void compileAssignSt(void)
+{
   //*** TODO: parse the assignment and check type consistency
   Type *varType[10];
   Type *expType[10];
@@ -498,17 +498,17 @@ void compileAssignSt(void) {
   int count = 0;
 
   varType[0] = compileLValue();
-  while(lookAhead->tokenType == SB_COMMA)
+  while (lookAhead->tokenType == SB_COMMA)
   {
     eat(SB_COMMA);
     count++;
     varType[count] = compileLValue();
   }
-  
+
   eat(SB_ASSIGN);
   expType[0] = compileExpression();
 
-  while(lookAhead->tokenType == SB_COMMA)
+  while (lookAhead->tokenType == SB_COMMA)
   {
     eat(SB_COMMA);
     m++;
@@ -872,7 +872,9 @@ Type *compileFactor(void)
       if (obj->varAttrs->type->typeClass == TP_ARRAY)
       {
         type = compileIndexes(obj->varAttrs->type);
-      } else {
+      }
+      else
+      {
         type = obj->varAttrs->type;
       }
       break;
@@ -897,11 +899,11 @@ Type *compileFactor(void)
 
 Type *compileIndexes(Type *arrayType)
 {
-  Type* type;
+  Type *type;
   while (lookAhead->tokenType == SB_LSEL)
   {
     eat(SB_LSEL);
-    type =  compileExpression();
+    type = compileExpression();
     checkIntType(type);
     checkArrayType(arrayType);
     arrayType = arrayType->elementType;

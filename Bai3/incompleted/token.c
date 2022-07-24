@@ -46,10 +46,8 @@ int keywordEq(char *kw, char *string)
   return ((*kw == '\0') && (*string == '\0'));
 }
 
-1 2 3 6 7 8 9 5 6
-
-    TokenType
-    checkKeyword(char *string)
+TokenType
+checkKeyword(char *string)
 {
   int i;
   for (i = 0; i < KEYWORDS_COUNT; i++)
